@@ -21,8 +21,11 @@ def flip_kv_vk(d: dict[KT, KV]) -> dict[KV, KT]:
             'Москва': 'moscow',
         }
     """
-    raise NotImplementedError
+    new_d = {}
+    for key, value in d.items():
+        new_d[value] = key
 
+    return new_d
 
 def flip_kv_vk_safe(d: dict[KT, KV]) -> dict[KV, list[KT]]:
     """Формирует словарь, в котором в качестве ключей - значения
@@ -35,4 +38,12 @@ def flip_kv_vk_safe(d: dict[KT, KV]) -> dict[KV, list[KT]]:
             '+3': ['Москва', 'Санкт-Петербург'],
         }
     """
-    raise NotImplementedError
+    flipped = {}
+    
+    for key, value in d.items():
+        flipped.setdefault(value, []).append(key)
+    
+    return flipped
+    
+print(flip_kv_vk({'tokyo': 'Токио', 'moscow': 'Москва'}))
+print(flip_kv_vk_safe({"key1": "value1", "key2": "value1"}))
